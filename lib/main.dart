@@ -1,42 +1,64 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
+      debugShowCheckedModeBanner: false,
+      title: 'ListView Example',
       theme: ThemeData(
-        // useMaterial3: false,
         primarySwatch: Colors.blue,
       ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: ListViewExample(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});  
+class ListViewExample extends StatelessWidget {
+  // Lista de íconos y textos para cada elemento del ListView
+  final List<Map<String, dynamic>> items = [
+    {'icon': Icons.directions_bike, 'text': 'bike'},
+    {'icon': Icons.directions_boat, 'text': 'boat'},
+    {'icon': Icons.directions_bus, 'text': 'bus'},
+    {'icon': Icons.directions_car, 'text': 'car'},
+    {'icon': Icons.directions_railway, 'text': 'railway'},
+    {'icon': Icons.directions_run, 'text': 'run'},
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
+        title: Text('ListView Camila Rodriguez 1300'),
+        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
+        backgroundColor: Colors.teal, // Color personalizado para el AppBar
+        elevation: 10, // Sombra en el AppBar
       ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
-        ),
+      body: ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 1, // Sombra en cada elemento del ListView
+            margin:
+                EdgeInsets.only(bottom: 12), // Margen solo en la parte inferior
+            shape: RoundedRectangleBorder(
+              borderRadius:
+                  BorderRadius.circular(2), // Bordes menos redondeados
+            ),
+            child: ListTile(
+              leading: Icon(items[index]['icon'],
+                  color: Color(0xffa2a0a4)), // Color del ícono
+              title: Text(items[index]['text']),
+              minLeadingWidth: 40, // Más espacio entre el ícono y el texto
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 16), // Padding horizontal
+            ),
+          );
+        },
       ),
     );
   }
